@@ -1,0 +1,80 @@
+
+
+
+
+# TLS
+```
+openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out mongodb.crt -keyout mongodb.key
+```
+
+# Self-signed SSL certificates
+```
+openssl genrsa -out mongodb.key 2048
+openssl req -new -x509 -key mongodb.key -out mongodb.crt -days 365
+cat mongodb.crt mongodb.key > mongodb.pem
+```
+
+
+TODO: HANDLE DOCKER NETWORK
+docker run -d -p 27017:27017 --name mongodbx1 --network net-wmb my-mongodbx1
+
+Without port mapping, cannot be reached by external (vscode, etc.)
+
+Connect to the dockerized mongodb with userame/pass
+
+
+
+
+https://www.linode.com/docs/guides/create-a-self-signed-tls-certificate/
+
+
+#Commands
+
+```
+use <database>: permet de sélectionner une base de données MongoDB.
+
+show dbs: affiche une liste de toutes les bases de données MongoDB.
+
+db.createCollection("<collection>"): crée une nouvelle collection dans la base de données actuelle.
+
+db.<collection>.insertOne(<document>): insère un document dans la collection spécifiée.
+
+db.<collection>.insertMany([<document1>,<document2>,...]): insère plusieurs documents dans la collection spécifiée.
+
+db.<collection>.find(): récupère tous les documents de la collection spécifiée.
+
+db.<collection>.findOne(<query>): récupère le premier document qui correspond à la requête spécifiée.
+
+db.<collection>.updateOne(<query>,<update>): met à jour le premier document qui correspond à la requête spécifiée.
+
+db.<collection>.updateMany(<query>,<update>): met à jour tous les documents qui correspondent à la requête spécifiée.
+
+db.<collection>.replaceOne(<query>,<update>): remplace le premier document qui correspond à la requête spécifiée.
+
+db.<collection>.deleteOne(<query>): supprime le premier document qui correspond à la requête spécifiée.
+
+db.<collection>.deleteMany(<query>): supprime tous les documents qui correspondent à la requête spécifiée.
+
+db.<collection>.count(<query>): compte le nombre de documents qui correspondent à la requête spécifiée.
+
+db.<collection>.distinct(<field>,<query>): renvoie une liste distincte des valeurs pour le champ spécifié dans les documents qui correspondent à la requête spécifiée.
+
+db.<collection>.aggregate(<pipeline>): effectue un pipeline d'opérations d'agrégation sur la collection spécifiée.
+
+db.<collection>.createIndex(<keys>,<options>): crée un index sur la collection spécifiée.
+
+db.<collection>.dropIndex(<index>): supprime un index de la collection spécifiée.
+
+db.<collection>.find().sort(<sort>): trie les documents récupérés en fonction des critères de tri spécifiés.
+
+db.<collection>.find().limit(<limit>): limite le nombre de documents récupérés.
+
+db.<collection>.find().skip(<skip>): ignore les premiers documents récupérés et renvoie les suivants.
+```
+
+Search duplicated entry by videoItem
+
+```
+db.blogs.aggregate( { $group : { _id : "$videoItem", count: { $sum: 1 } } } );
+```
+
